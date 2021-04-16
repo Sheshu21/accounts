@@ -1,4 +1,5 @@
 xquery version "1.0-ml";
+import module namespace home = "welcome-page" at "welcome.xqy";
 
 declare function local:result-controller()
 {
@@ -32,12 +33,12 @@ declare function local:result-controller()
             							<td>{$bill/Type/text()}</td>
             							<td>{$bill/GSTN/text()}</td>
             							<td>{$bill/InvoiceNumber/text()}</td>
-            							<td>{fn:format-number($bill/InvoiceAmount/text(),"#,##0.00")}</td>
+            							<td style="text-align:right">{fn:format-number($bill/InvoiceAmount/text(),"#,##0.00")}</td>
             							<td><a href="index-view-sales-details.xq?Type={$bill/Type/text()}&amp;invoiceDate={$bill/Date/text()}&amp;invoiceNumber={$bill/InvoiceNumber/text()}&amp;invoiceAmount={$bill/InvoiceAmount/text()}&amp;GSTNType={$bill/GSTN/text()}&amp;Name={$bill/Name/text()}&amp;GSTNumber={$bill/GSTNumber/text()}&amp;GST5={$bill/GST5/GST5Basic/text()}&amp;GST12={$bill/GST12/GST12Basic/text()}&amp;GST18={$bill/GST18/GST18Basic/text()}&amp;GST28={$bill/GST28/GST28Basic/text()}" target="_blank"><button>View/Edit</button></a></td>
             							<td><a href="delete.xq?uri={fn:base-uri($bill)}" target="_blank"><button>Delete Bill</button></a></td>
             						</tr>
             					)
-            return (<table align="center" border="1" style="width:800px">{$header,$result}</table>)
+            return (<table align="left" border="1" style="width:800px">{$header,$result}</table>)
 			(:let $data := fn:collection("Trader")/node()[SupplierName eq $name]
 			let $input :=fn:concat("supplierName=",$name,"&amp;supplierNickName=",$data/SupplierNickName/text(),"&amp;GSTNO=",$data/GSTNO/text(),"&amp;Address=",$data/Address/text(),"&amp;phoneNumber=",$data/PhoneNumber/text())
 			return local:display-ledger($input)):)
@@ -45,22 +46,11 @@ declare function local:result-controller()
 };
 
 
+let $content :=
 
-xdmp:set-response-content-type("text/html; charset=utf-8"),
-<html>
-<head>
-<title>Mohan Automobiles</title>
-<link href="boilerplate.css" rel="stylesheet" type="text/css"/>
-<link href="fluid.css" rel="stylesheet" type="text/css"/>
-<link href="news.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div class="gridContainer clearfix">
-      <div class="header"><br/><h1>Mohan Automobiles</h1><br/><a href="index-welcome.xq"><button>Back to Home Page</button></a><br/><br/><h2>View/Edit Sales Bill</h2></div>
-      	<div class="section">
-		<div class="main-column">  
-			<div id="form">
-				<form name="form" method="get" action="index-view-sales.xq" id="form">
+      	<div class="main-content">
+      	    <h1>View/Edit Sales Details</h1>
+ 				<form name="form" method="get" action="index-view-sales.xq" id="form">
 						<label for="financialYear">Financial Year: </label>
 					    <select name="financialYear" id="financialYear" value="{xdmp:get-request-field("financialYear")}">
 					    <option>2021-22</option><option>2020-21</option>					    			   
@@ -76,10 +66,5 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 				<br/>
 				{local:result-controller()}
 			</div>
-		</div>
-	  </div>
-
-      <div class="footer"><br/><br/><hr/>Developed by <b class="dark-gray">Sheshadri V</b><br/><br/></div>
-    </div>
-</body>    
-</html>
+return home:welcome-page($content)   			
+		

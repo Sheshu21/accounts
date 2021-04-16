@@ -1,5 +1,10 @@
 xquery version "1.0-ml";
 
+module namespace home = "welcome-page";
+
+
+declare function home:welcome-page($node){
+
   let $document := <html xmlns="http://www.w3.org/1999/xhtml">
 
   <title>Mohan Automobiles</title>
@@ -14,7 +19,7 @@ xquery version "1.0-ml";
   <body>
 
     <div class="navbar">
-        <a href="">Home</a>
+        <a href="index.xqy">Home</a>
         <a href="">Mohan Automobiles</a>
     </div>
 
@@ -70,29 +75,8 @@ xquery version "1.0-ml";
           <a href="index-auto-insert.xq">Add Trader/Supplier</a>
           <a href="index-view-trader.xq">View/Edit Trader Info</a>
         </div>
-
-        	<!--
-          <a href="pricelist.xq"><button style="margin-left:80px">Price List</button></a>
-          <a href="index-view-balance.xq"><button style='margin-left:200px'>Outstanding Balances</button></a>
-          <br/><br/><br/>
-          <a href="index-auto.xq"><button>Purchase Details Entry</button></a>
-          <a href="index-view-purchase.xq"><button style='margin-left:50px'>View/Edit Purchase Details</button></a>
-          <a href="index-view-error.xq"><button style='margin-left:365px'>Error Balances</button></a>
-          <br/><br/><br/>
-        	<a href="index-sales.xq"><button>Sales Details Entry</button></a>
-          <a href="index-view-sales.xq"><button style='margin-left:80px'>View/Edit Sales Details</button></a><br/><br/><br/>
-        	<a href="index-payments.xq"><button>Payments Details Entry</button></a>
-          <a href="index-view-payments.xq"><button style='margin-left:50px'>View/Edit Payments Details</button></a><br/><br/><br/>
-        	<a href="index-reports.xq"><button>Party-wise Ledger</button></a><br/><br/><br/>
-
-  	      <a href="index-reports-ledger-sales-purchase.xq"><button>Sales-Purchase Ledger</button></a><br/><br/><br/>
-          <a href="index-view-day-book.xq"><button>Day Book</button></a>
-
-          <a href="index-reports-purchase.xq"><button style='margin-left:80px'>Purchase Report</button></a>
-          <a href="index-reports-payment.xq"><button style='margin-left:80px'>Payment Report</button></a>
-          <a href="index-reports-sale.xq"><button style='margin-left:80px'>Sales Report</button></a>
-        <div class="footer"><hr/>Developed by <b class="dark-gray">Sheshadri V</b><br/><br/></div>
-        -->
+        {$node}
+        
     </div>
     <script type="text/javascript" src="date.js"></script>
   </body>    
@@ -104,3 +88,4 @@ xquery version "1.0-ml";
     "<!DOCTYPE html>", 
     document{ $document} 
   )
+};
