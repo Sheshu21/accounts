@@ -1,4 +1,5 @@
 xquery version "1.0-ml";
+import module namespace home = "welcome-page" at "welcome.xqy";
 
 declare function local:result-controller()
 {
@@ -69,32 +70,14 @@ declare function local:display-article()
         <meta http-equiv="refresh" content="5; URL=index-sales.xq"/>
       </div>
        </div>
-      (:<!--{$doc/ns:html/ns:body/ns:div/ns:h1/text()}
-    </div>
-    {
-      for $p in $doc/ns:html/ns:body/ns:div/ns:p
-      return <p>{$p/string()}</p>
-    }
-    <div>{fn:string($doc/ns:html/ns:head/ns:meta[@property eq "rnews:datePublished"]/@content)}</div>
-  </div>-->:)
 };
 
+let $content :=
+    
+        <div class="main-content">    
+          <h1>Sales Details Entry</h1>
+          <p>Please Enter the Sales Details</p>
 
-
-xdmp:set-response-content-type("text/html; charset=utf-8"),
-<html>
-<head>
-<title>Mohan Automobiles</title>
-<link href="boilerplate.css" rel="stylesheet" type="text/css"/>
-<link href="fluid.css" rel="stylesheet" type="text/css"/>
-<link href="news.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div class="gridContainer clearfix">
-      <div class="header"><h1>Mohan Automobiles</h1><a href="index-welcome.xq"><button>Back to Home Page</button></a><br/><h2>Sales Details Entry</h2></div>
-      <div class="section">
-        <div class="main-column">  
-        <div id="form">      
           <form name="form" method="get" action="index-sales.xq" id="form">
           <label for="Type">Type Of Sales: </label>
           <select name="Type" id="Type" required="true" value="{xdmp:get-request-field("Type")}">
@@ -134,9 +117,5 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
         </form> 
         {local:result-controller()}
       </div>
-    </div>
-    </div>
-      <div class="footer"><hr/>Developed by <b class="dark-gray">Sheshadri V</b><br/><br/></div>
-    </div>
-</body>    
-</html>
+
+return home:welcome-page($content)        

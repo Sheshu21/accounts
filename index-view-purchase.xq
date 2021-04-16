@@ -1,4 +1,5 @@
 xquery version "1.0-ml";
+import module namespace home = "welcome-page" at "welcome.xqy";
 
 declare function local:result-controller()
 {
@@ -40,43 +41,14 @@ declare function local:result-controller()
             						</tr>
             					)
             return (<h3><strong>{$name}</strong></h3>,
-            		<table align="center" border="1" style="width:800px">{$header,$result}</table>)
+            		<table align="left" border="1" style="width:800px">{$header,$result}</table>)
             )
-			(:let $data := fn:collection("Trader")/node()[SupplierName eq $name]
-			let $input :=fn:concat("supplierName=",$name,"&amp;supplierNickName=",$data/SupplierNickName/text(),"&amp;GSTNO=",$data/GSTNO/text(),"&amp;Address=",$data/Address/text(),"&amp;phoneNumber=",$data/PhoneNumber/text())
-			return local:display-ledger($input)):)
 	else ()
 };
 
-declare function local:display-ledger($input)
-{
-
-	
-
-
-
-	<!--<div>
-		<div class="article-heading">
-			<meta http-equiv="refresh" content="10; URL=index-view-purchase-details.xq?{$input}"/>
-		</div>
-	</div>-->
-};
-
-
-xdmp:set-response-content-type("text/html; charset=utf-8"),
-<html>
-<head>
-<title>Mohan Automobiles</title>
-<link href="boilerplate.css" rel="stylesheet" type="text/css"/>
-<link href="fluid.css" rel="stylesheet" type="text/css"/>
-<link href="news.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div class="gridContainer clearfix">
-      <div class="header"><br/><h1>Mohan Automobiles</h1><br/><a href="index-welcome.xq"><button>Back to Home Page</button></a><br/><br/><h2>View/Edit Purchase Bill</h2></div>
-      	<div class="section">
-		<div class="main-column">  
-			<div id="form">
+let $content := 
+			<div class="main-content">
+			<h1>View/Edit Purchase Details Entry</h1>
 				<form name="form" method="get" action="index-view-purchase.xq" id="form">
 					<label for="supplierName">Supplier Name: </label>
 					<select name="supplierName" id="supplierName" required="true" value="{xdmp:get-request-field("supplierName")}">
@@ -104,10 +76,6 @@ xdmp:set-response-content-type("text/html; charset=utf-8"),
 				<br/>
 				{local:result-controller()}
 			</div>
-		</div>
-	  </div>
 
-      <div class="footer"><br/><br/><hr/>Developed by <b class="dark-gray">Sheshadri V</b><br/><br/></div>
-    </div>
-</body>    
-</html>
+return home:welcome-page($content)			
+		
