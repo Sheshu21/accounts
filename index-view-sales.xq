@@ -34,34 +34,37 @@ declare function local:result-controller()
             							<td>{$bill/GSTN/text()}</td>
             							<td>{$bill/InvoiceNumber/text()}</td>
             							<td style="text-align:right">{fn:format-number($bill/InvoiceAmount/text(),"#,##0.00")}</td>
-            							<td><a href="index-view-sales-details.xq?Type={$bill/Type/text()}&amp;invoiceDate={$bill/Date/text()}&amp;invoiceNumber={$bill/InvoiceNumber/text()}&amp;invoiceAmount={$bill/InvoiceAmount/text()}&amp;GSTNType={$bill/GSTN/text()}&amp;Name={$bill/Name/text()}&amp;GSTNumber={$bill/GSTNumber/text()}&amp;GST5={$bill/GST5/GST5Basic/text()}&amp;GST12={$bill/GST12/GST12Basic/text()}&amp;GST18={$bill/GST18/GST18Basic/text()}&amp;GST28={$bill/GST28/GST28Basic/text()}" target="_blank"><button>View/Edit</button></a></td>
-            							<td><a href="delete.xq?uri={fn:base-uri($bill)}" target="_blank"><button>Delete Bill</button></a></td>
+            							<td><a href="index-view-sales-details.xq?Type={$bill/Type/text()}&amp;invoiceDate={$bill/Date/text()}&amp;invoiceNumber={$bill/InvoiceNumber/text()}&amp;invoiceAmount={$bill/InvoiceAmount/text()}&amp;GSTNType={$bill/GSTN/text()}&amp;Name={$bill/Name/text()}&amp;GSTNumber={$bill/GSTNumber/text()}&amp;GST5={$bill/GST5/GST5Basic/text()}&amp;GST12={$bill/GST12/GST12Basic/text()}&amp;GST18={$bill/GST18/GST18Basic/text()}&amp;GST28={$bill/GST28/GST28Basic/text()}" target="_blank">View/Edit</a></td>
+            							<td><a href="delete.xq?uri={fn:base-uri($bill)}" target="_blank">Delete Bill</a></td>
             						</tr>
             					)
-            return (<table align="left" border="1" style="width:800px">{$header,$result}</table>)
-			(:let $data := fn:collection("Trader")/node()[SupplierName eq $name]
-			let $input :=fn:concat("supplierName=",$name,"&amp;supplierNickName=",$data/SupplierNickName/text(),"&amp;GSTNO=",$data/GSTNO/text(),"&amp;Address=",$data/Address/text(),"&amp;phoneNumber=",$data/PhoneNumber/text())
-			return local:display-ledger($input)):)
-			) else ()
+            return (<h3 class="supplier"><strong>{fn:concat("Sales Details ", if($startDate) then fn:concat("From ",fn:format-date(xs:date($startDate),"[D01]/[M01]/[Y0001]")," to ",fn:format-date(xs:date($endDate),"[D01]/[M01]/[Y0001]") ) else $financialYear )}</strong></h3>,
+            		<div class="main-content-table-inner" style="text-align= center; width:850px; height:600px; overflow:auto;">
+            			<table align="left" border="1" style="width:800px">{$header,$result}</table>
+            			<p>Developed by Sheshadri V.</p>
+            		</div>			
+			)
+		) 
+		else ()
 };
 
 
 let $content :=
 
       	<div class="main-content">
-      	    <h1>View/Edit Sales Details</h1>
+      	    <h3>View Sales Details</h3>
  				<form name="form" method="get" action="index-view-sales.xq" id="form">
 						<label for="financialYear">Financial Year: </label>
-					    <select name="financialYear" id="financialYear" value="{xdmp:get-request-field("financialYear")}">
+					    <select name="financialYear" id="financialYear" style="width:100px; font-size:14px" value="{xdmp:get-request-field("financialYear")}">
 					    <option>2021-22</option><option>2020-21</option>					    			   
 					    </select><br/>
 					    <label for="startDate">Start Date: </label>
-						<input type="date" name="startDate" id="startDate" size="50" value="{xdmp:get-request-field("startDate")}"/><br/>
+						<input type="date" style="width:180px; font-size:14px" name="startDate" id="startDate" size="50" value="{xdmp:get-request-field("startDate")}"/><br/>
 
 						<label for="endDate">End Date: </label>
-						<input type="date" name="endDate" id="endDate" size="50" value="{xdmp:get-request-field("endDate")}"/><br/>
-<br/><br/>
-					<input type="submit" name="submitbtn" id="submitbtn" value="View Details"/>
+						<input type="date" style="width:180px; font-size:14px" name="endDate" id="endDate" size="50" value="{xdmp:get-request-field("endDate")}"/><br/>
+
+					<input type="submit" class="submitbtn" name="submitbtn" value="View Details"/>
 				</form> 
 				<br/>
 				{local:result-controller()}

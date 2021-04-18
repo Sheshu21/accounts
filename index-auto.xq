@@ -10,14 +10,14 @@ declare function local:getTrader(){
 };
 declare function local:result-controller()
 {
-	if(xdmp:get-request-field("supplierName") and xdmp:get-request-field("invoiceDate") and xdmp:get-request-field("invoiceNumber") and xdmp:get-request-field("invoiceAmount") and xdmp:get-request-field("GSTNType") and (xdmp:get-request-field("GST5") or xdmp:get-request-field("GST12") or xdmp:get-request-field("GST18") or xdmp:get-request-field("GST28")))
+	if(xdmp:get-request-field("supplierName") and xdmp:get-request-field("invoiceDate") and xdmp:get-request-field("invoiceNumber") and xdmp:get-request-field("invoiceAmount") and (xdmp:get-request-field("GST5") or xdmp:get-request-field("GST12") or xdmp:get-request-field("GST18") or xdmp:get-request-field("GST28")))
 	then 	
 			let $supplierName := xdmp:get-request-field("supplierName")
 			let $invoiceDate := xdmp:get-request-field("invoiceDate")
 			let $invoiceNumber := xdmp:get-request-field("invoiceNumber")
-			let $flag := fn:doc(fn:concat(fn:replace($supplierName," ",""),"/",$invoiceNumber,".xml"))
+			let $flag := fn:doc(fn:concat(fn:replace($supplierName," ",""),"/",$invoiceNumber,"/",$invoiceDate,".xml"))
 			let $invoiceAmount := fn:number(xdmp:get-request-field("invoiceAmount"))
-			let $GSTNType := xdmp:get-request-field("GSTNType")
+			let $GSTNType := fn:collection("Trader")/node()[SupplierName eq $supplierName]/GSTN/text()
 			let $GST5 := fn:number(xdmp:get-request-field("GST5"))
 			let $GST12 := fn:number(xdmp:get-request-field("GST12"))
 			let $GST18 := fn:number(xdmp:get-request-field("GST18"))
@@ -57,12 +57,9 @@ declare function local:result-controller()
 			                  if($flag) then element CreatedBy {$flag/node()/CreatedBy/text()} else element CreatedBy {xdmp:get-request-username()},
 			                  element UpdatedBy {xdmp:get-request-username()}
 			              }
-			return (xdmp:document-insert( fn:concat(fn:replace($supplierName," ",""),"/",$invoiceNumber,".xml"), $doc, map:map() => map:with("collections", ("Purchases"))),
+			return (xdmp:document-insert( fn:concat(fn:replace($supplierName," ",""),"/",$invoiceNumber,"/",$invoiceDate,".xml"), $doc, map:map() => map:with("collections", ("Purchases"))),
 				local:display-article())
 	else ()
-		(:if(xdmp:get-request-field("term"))
-		then local:search-results()
-		else local:default-results():)
 };
 
 declare function local:display-article()
@@ -74,50 +71,45 @@ declare function local:display-article()
 				<meta http-equiv="refresh" content="5; URL=index-auto.xq"/>
 			</div>
 		   </div>
-
 };
-
-
 
 let $content :=
 
       	<div class="main-content">
-      	    <h1>Purchase Details Entry</h1>
-    		<p>Please Enter the Purchase Details</p>
+      	    <h3>Purchase Details Entry</h3>
       		<form name="form" method="get" action="index-auto.xq" id="form">
 					<label for="supplierName">Supplier Name: </label>
-					<select name="supplierName" id="supplierName" required="true" value="{xdmp:get-request-field("supplierName")}">
-					    {local:getTrader()}
+					<select name="supplierName" id="supplierName" style="width:350px; font-size:14px" required="true" value="{xdmp:get-request-field("supplierName")}">
+					    {let $a := fn:collection("Trader")/node()
+					    let $result := for $i in $a
+					    			   order by $i/SupplierNickName/text() ascending
+					    			   return (<option value="{$i/SupplierName/text()}">{$i/SupplierNickName/text()}</option>)
+						return (<option></option>,$result)					    			   
+						}
 					    </select><br/>
-					    
-					<!--<input type="text" name="supplierName" id="Name" size="50" value="{xdmp:get-request-field("supplierName")}"/><br/>-->
+					
 					<label for="invoiceDate">Invoice Date: </label>
-					<input type="date" name="invoiceDate" id="invoiceDate" size="50" required="true" value="{xdmp:get-request-field("invoiceDate")}"/><br/>
+					<input type="date" name="invoiceDate" style="width:150px; font-size:14px" id="invoiceDate" required="true" value="{xdmp:get-request-field("invoiceDate")}"/><br/>
+					
 					<label for="invoiceNumber">Invoice Number: </label>
 					<input type="text" name="invoiceNumber" id="invoiceNumber" required="true" value="{xdmp:get-request-field("invoiceNumber")}"/><br/>
-					<label for="invoiceAmount">Invoice Amount: </label>
-					<input type="text" name="invoiceAmount" id="invoiceAmount" required="true" value="{xdmp:get-request-field("invoiceAmount")}"/><br/>
-
-					<label for="GSTNType">GSTN Type: </label>
-					<select name="GSTNType" id="GSTNType" required="true" value="{xdmp:get-request-field("GSTNType")}">
-					    <option/><option value="IGST">IGST</option>
-					    <option value="CGST/SGST">CGST/SGST</option>
-					</select><br/>
-
-					<label for="GST5">5% Invoice Value: </label>
-					<input type="text" name="GST5" id="GST5" value="{xdmp:get-request-field("GST5")}"/><br/>
-
-					<label for="GST12">12% Invoice Value: </label>
-					<input type="text" name="GST12" id="GST12" value="{xdmp:get-request-field("GST12")}"/><br/>
-
-					<label for="GST18">18% Invoice Value: </label>
-					<input type="text" name="GST18" id="GST18" value="{xdmp:get-request-field("GST18")}"/><br/>
-
-					<label for="GST28">28% Invoice Value: </label>
-					<input type="number" name="GST28" step="0.01" id="GST28" value="{xdmp:get-request-field("GST28")}"/><br/><br/>
 					
-					<!--<button onclick="document.location='index-auto.xq'">HTML Tutorial</button>-->
-					<input type="submit" name="submitbtn" id="submitbtn" value="Add Invoice Data"/><br/><br/>
+					<label for="invoiceAmount">Invoice Amount: </label>
+					<input type="number" step="0.01" name="invoiceAmount" id="invoiceAmount" required="true" value="{xdmp:get-request-field("invoiceAmount")}"/><br/>
+
+					<label for="GST5">5% Taxable Value: </label>
+					<input type="number" step="0.01" name="GST5" id="GST5" value="{xdmp:get-request-field("GST5")}"/><br/>
+
+					<label for="GST12">12% Taxable Value: </label>
+					<input type="number" step="0.01" name="GST12" id="GST12" value="{xdmp:get-request-field("GST12")}"/><br/>
+
+					<label for="GST18">18% Taxable Value: </label>
+					<input type="number" step="0.01" name="GST18" id="GST18" value="{xdmp:get-request-field("GST18")}"/><br/>
+
+					<label for="GST28">28% Taxable Value: </label>
+					<input type="number" step="0.01" name="GST28" id="GST28" value="{xdmp:get-request-field("GST28")}"/><br/><br/>
+					
+					<input type="submit" class="submitbtn" value="Add Invoice Data"/>
 			</form> 
 			{local:result-controller()}
       	</div>

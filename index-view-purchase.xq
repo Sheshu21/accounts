@@ -1,6 +1,6 @@
 xquery version "1.0-ml";
 import module namespace home = "welcome-page" at "welcome.xqy";
-
+declare variable $name as xs:string := "";
 declare function local:result-controller()
 {
 	if(xdmp:get-request-field("supplierName") and xdmp:get-request-field("financialYear"))
@@ -35,23 +35,27 @@ declare function local:result-controller()
             							<td>{fn:format-date($bill/Date/text(),"[D01]/[M01]/[Y0001]")}</td>
             							<td>{$bill/GSTN/text()}</td>
             							<td>{$bill/InvoiceNumber/text()}</td>
-            							<td>{fn:format-number($bill/InvoiceAmount/text(),"#,##0.00")}</td>
-            							<td><a href="index-view-purchase-details.xq?supplierName={$name}&amp;invoiceDate={$bill/Date/text()}&amp;invoiceNumber={$bill/InvoiceNumber/text()}&amp;invoiceAmount={$bill/InvoiceAmount/text()}&amp;GSTNType={$bill/GSTN/text()}&amp;GST5={$bill/GST5/GST5Basic/text()}&amp;GST12={$bill/GST12/GST12Basic/text()}&amp;GST18={$bill/GST18/GST18Basic/text()}&amp;GST28={$bill/GST28/GST28Basic/text()}" target="_blank"><button>View/Edit</button></a></td>
-            							<td><a href="delete.xq?uri={fn:base-uri($bill)}" target="_blank"><button>Delete Bill</button></a></td>
+            							<td style="text-align:right">{fn:format-number($bill/InvoiceAmount/text(),"#,##0.00")}</td>
+            							<td><a href="index-view-purchase-details.xq?supplierName={$name}&amp;invoiceDate={$bill/Date/text()}&amp;invoiceNumber={$bill/InvoiceNumber/text()}&amp;invoiceAmount={$bill/InvoiceAmount/text()}&amp;GSTNType={$bill/GSTN/text()}&amp;GST5={$bill/GST5/GST5Basic/text()}&amp;GST12={$bill/GST12/GST12Basic/text()}&amp;GST18={$bill/GST18/GST18Basic/text()}&amp;GST28={$bill/GST28/GST28Basic/text()}" target="_blank">View/Edit</a></td>
+            							<td><a href="delete.xq?uri={fn:base-uri($bill)}" target="_blank">Delete Bill</a></td>
             						</tr>
             					)
-            return (<h3><strong>{$name}</strong></h3>,
-            		<table align="left" border="1" style="width:800px">{$header,$result}</table>)
+            return (<h3 class="supplier"><strong>{fn:concat($name, " ", if($startDate) then fn:concat("From ",fn:format-date(xs:date($startDate),"[D01]/[M01]/[Y0001]")," to ",fn:format-date(xs:date($endDate),"[D01]/[M01]/[Y0001]") ) else $financialYear )}</strong></h3>,
+            		<div class="main-content-table-inner" style="text-align= center; width:850px; height:600px; overflow:auto;">
+            			<table align="left" border="1" style="width:800px">{$header,$result}</table>
+            			<p>Developed by Sheshadri V.</p>
+            		</div>
+            		)
             )
 	else ()
 };
 
 let $content := 
 			<div class="main-content">
-			<h1>View/Edit Purchase Details Entry</h1>
+			<h3>View/Edit Purchase Details</h3>
 				<form name="form" method="get" action="index-view-purchase.xq" id="form">
 					<label for="supplierName">Supplier Name: </label>
-					<select name="supplierName" id="supplierName" required="true" value="{xdmp:get-request-field("supplierName")}">
+					<select name="supplierName" id="supplierName" style="width:350px; font-size:14px" required="true" value="{xdmp:get-request-field("supplierName")}">
 					    {let $a := fn:collection("Trader")/node()
 					    let $result := for $i in $a
 					    			   order by $i/SupplierNickName/text() ascending
@@ -61,19 +65,18 @@ let $content :=
 					    </select><br/>
 
 					    <label for="financialYear">Financial Year: </label>
-					    <select required="true" name="financialYear" id="financialYear" value="{xdmp:get-request-field("financialYear")}">
+					    <select required="true" style="width:100px; font-size:14px" name="financialYear" id="financialYear" value="{xdmp:get-request-field("financialYear")}">
 					    <option>2021-22</option><option>2020-21</option>					    			   
 					    </select><br/>
 
 					    <label for="startDate">Start Date: </label>
-						<input type="date" name="startDate" id="startDate" size="50" value="{xdmp:get-request-field("startDate")}"/><br/>
+						<input type="date" style="width:180px; font-size:14px" name="startDate" id="startDate" value="{xdmp:get-request-field("startDate")}"/><br/>
 
 						<label for="endDate">End Date: </label>
-						<input type="date" name="endDate" id="endDate" size="50" value="{xdmp:get-request-field("endDate")}"/><br/><br/>
+						<input type="date" style="width:180px; font-size:14px" name="endDate" id="endDate" value="{xdmp:get-request-field("endDate")}"/><br/>
 					
-					<input type="submit" name="submitbtn" id="submitbtn" value="View Details"/>
-				</form> 
-				<br/>
+					<input type="submit" class="submitbtn" value="View Details"/>
+				</form>
 				{local:result-controller()}
 			</div>
 

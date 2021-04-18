@@ -25,9 +25,6 @@ declare function home:welcome-page($node){
 
 
   	<div class="sidenav">
-
-        
-
         <button class="dropdown-btn">Purchase 
           <i class="fa fa-caret-down"></i>
         </button>
