@@ -1,4 +1,5 @@
 xquery version "1.0-ml";
+import module namespace home = "welcome-page" at "welcome.xqy";
 
 declare function local:result-controller()
 {
@@ -42,62 +43,35 @@ declare function local:display-article()
         <meta http-equiv="refresh" content="5; URL=index-auto-insert.xq"/>
       </div>
        </div>
-      (:<!--{$doc/ns:html/ns:body/ns:div/ns:h1/text()}
-    </div>
-    {
-      for $p in $doc/ns:html/ns:body/ns:div/ns:p
-      return <p>{$p/string()}</p>
-    }
-    <div>{fn:string($doc/ns:html/ns:head/ns:meta[@property eq "rnews:datePublished"]/@content)}</div>
-  </div>-->:)
 };
+let $content :=
 
-
-
-
-
-xdmp:set-response-content-type("text/html; charset=utf-8"),
-<html>
-<head>
-<title>Mohan Automobiles</title>
-<link href="boilerplate.css" rel="stylesheet" type="text/css"/>
-<link href="fluid.css" rel="stylesheet" type="text/css"/>
-<link href="news.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-	<div class="gridContainer clearfix">
-      <div class="header"><h1>Mohan Automobiles</h1><br/><a href="index-welcome.xq"><button>Back to Home Page</button></a><br/><br/><h2>Add New Trader/Supplier</h2></div>
-      <div class="section">
-        <div class="main-column">  
-        <div id="form">      
+        <div class="main-content"> 
+          <h1>Add New Trader/Supplier</h1>      
           <form name="form" method="get" action="index-auto-insert.xq" id="form">
           <label for="supplierName">Name: </label>
-			     <input required="true" type="text" name="supplierName" id="supplierName" value="{xdmp:get-request-field("supplierName")}"/><br/>
+			     <input required="true" type="text" style="width:350px" name="supplierName" id="supplierName" value="{xdmp:get-request-field("supplierName")}"/><br/>
           <label for="supplierNickName">Nick Name: </label>
-           <input required="true" type="text" name="supplierNickName" id="supplierNickName" value="{xdmp:get-request-field("supplierNickName")}"/><br/>
+           <input required="true" type="text" style="width:350px" name="supplierNickName" id="supplierNickName" value="{xdmp:get-request-field("supplierNickName")}"/><br/>
           
           <label for="GSTNO">GST Number: </label>
-           <input required="true" type="text" name="GSTNO" id="GSTNO" value="{xdmp:get-request-field("GSTNO")}"/><br/>
+           <input required="true" type="text" style="width:150px" name="GSTNO" id="GSTNO" value="{xdmp:get-request-field("GSTNO")}"/><br/>
           
            <label for="GSTN">GST Type: </label>
-           <select name="GSTN" id="GSTN" required="true" value="{xdmp:get-request-field("GSTN")}">
+           <select name="GSTN" style="width:150px" id="GSTN" required="true" value="{xdmp:get-request-field("GSTN")}">
               <option/><option value="IGST">IGST</option>
               <option value="CGST/SGST">CGST/SGST</option>
           </select><br/>
           <label for="Address">Address: </label>
-           <input required="true" type="text" name="Address" id="Address" value="{xdmp:get-request-field("Address")}"/><br/>
+           <input required="true" style="width:150px" type="text" name="Address" id="Address" value="{xdmp:get-request-field("Address")}"/><br/>
           
           <label for="phoneNumber">Phone Number: </label>
-           <input required="true" type="text" name="phoneNumber" id="phoneNumber" value="{xdmp:get-request-field("phoneNumber")}"/><br/>
+           <input required="true" style="width:150px" type="text" name="phoneNumber" id="phoneNumber" value="{xdmp:get-request-field("phoneNumber")}"/><br/>
          <br/><br/>
-          <input type="submit" name="submitbtn" id="submitbtn" value="Add Trader Info"/>
+          <input type="submit" class="submitbtn" id="submitbtn" value="Add Trader Info"/>
         </form> 
         <br/>
         {local:result-controller()}
-      </div>
     </div>
-    </div>
-      <div class="footer"><br/><hr/>Developed by <b class="dark-gray">Sheshadri V</b><br/><br/></div>
-    </div>
-</body>    
-</html>
+
+return home:welcome-page($content)

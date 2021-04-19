@@ -7,12 +7,12 @@ body {
 
 .sidenav {
   height: 100%;
-  width: 280px;
+  width: 240px;
   position: fixed;
   z-index: 1;
-  top: 47px;
+  top: 45px;
   left: 0;
-  background-color: #111;
+  background-color: #DCDCDC;
   overflow-x: hidden;
   padding-top: 20px;
 }
@@ -21,8 +21,8 @@ body {
 .sidenav a, .dropdown-btn {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
-  font-size: 20px;
-  color: #818181;
+  font-size: 16px;
+  color: black;
   display: block;
   border: none;
   background: none;
@@ -35,26 +35,26 @@ body {
 /* On mouse-over */
 .sidenav a:hover, .dropdown-btn:hover {
   background-color: red;
-  color: #f1f1f1;
+  color: white;
 }
 
 /* Main content */
 .main {
   margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
+  font-size: 16px; /* Increased text to enable scrolling */
   padding: 0px 10px;
 }
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: green;
+  background-color: #a75502;
   color: white;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
   display: none;
-  background-color: #262626;
+  background-color: #FFD700;
   padding-left: 8px;
 }
 
@@ -67,7 +67,7 @@ body {
 /* Some media queries for responsiveness */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+  .sidenav a {font-size: 16px;}
 }
 
 {
@@ -140,13 +140,73 @@ body {
   width: 100%;
   position: fixed;
   z-index: 1;
-  top: 47px;
-  left: 350px;
-  background-color: white;
+  top: 1px;
+  left: 240px;
+  background-color: #F5FFFA;
   overflow-x: hidden;
   padding-top: 20px;
-  font-family: "Lato", sans-serif;
+  font-family: Bradley Hand, cursive;
   padding: 12px 16px;
-  font-size: 16px;  
+  font-size: 14px;  
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.main-content-table {
+  overflow: auto;
+  position: fixed;
+  top: 47px;
+  left: 280px;
+  padding-top: 20px;
+  font-family: Bradley Hand, cursive;
+  padding: 12px 16px;
+  font-size: 16px;
+    -ms-transform: translateX(+20%);
+  transform: translateX(+20%);
+}
+input[type=text]:focus, input[type=date]:focus, input[type=number]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+input[type=text], input[type=date], input[type=number] {
+  width: 30%;
+  padding: 10px;
+  margin: 2px 0 6px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+button:hover {
+  opacity:1;
+}
+
+.submitbtn {
+  padding: 12px 16px;
+  background-color: #4CAF50;
+}
+
+.main-content-table-inner {
+  overflow: auto;
+  position: fixed;
+  max-height: 390px;
+  top: 260px;
+  left: 280px;
+  padding-top: 20px;
+  font-family: Bradley Hand, cursive;
+  padding: 12px 16px;
+  font-size: 14px;
+    -ms-transform: translateX(+20%);
+  transform: translateX(+20%);
+}
+
+.supplier {
+  position: fixed;
+  top: 200px;
+  left: 500px;
+
 }
 

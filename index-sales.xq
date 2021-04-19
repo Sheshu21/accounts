@@ -75,16 +75,15 @@ declare function local:display-article()
 let $content :=
     
         <div class="main-content">    
-          <h1>Sales Details Entry</h1>
-          <p>Please Enter the Sales Details</p>
+          <h3>Sales Details Entry</h3>
 
           <form name="form" method="get" action="index-sales.xq" id="form">
           <label for="Type">Type Of Sales: </label>
-          <select name="Type" id="Type" required="true" value="{xdmp:get-request-field("Type")}">
+          <select name="Type" id="Type" required="true" style="width:350px; font-size:14px" value="{xdmp:get-request-field("Type")}">
               <option value="B2CS">Customer Sales</option><option value="B2B">B2B</option></select><br/>
           <!--<input type="text" name="supplierName" id="Name" size="50" value="{xdmp:get-request-field("supplierName")}"/><br/>-->
           <label for="invoiceDate">Invoice Date: </label>
-          <input type="date" required="true" name="invoiceDate" id="invoiceDate" size="50" value="{xdmp:get-request-field("invoiceDate")}"/><br/>
+          <input type="date" required="true" style="width:150px; font-size:14px" name="invoiceDate" id="invoiceDate" size="50" value="{xdmp:get-request-field("invoiceDate")}"/><br/>
           <label for="invoiceNumber">Invoice Number: </label>
           <input type="text" required="true" name="invoiceNumber" id="invoiceNumber" value="{xdmp:get-request-field("invoiceNumber")}"/><br/>
           <label for="invoiceAmount">Invoice Amount: </label>
@@ -95,7 +94,7 @@ let $content :=
           <input type="text" name="GSTNumber" id="GSTNumber" value="{xdmp:get-request-field("GSTNumber")}"/><br/>
 
           <label for="GSTNType">GSTN Type: </label>
-          <select required="true" name="GSTNType" id="GSTNType" value="{xdmp:get-request-field("GSTNType")}">
+          <select required="true" name="GSTNType" style="width:100px; font-size:14px" id="GSTNType" value="{xdmp:get-request-field("GSTNType")}">
               <option></option>
               <option value="IGST">IGST</option>
               <option value="CGST/SGST">CGST/SGST</option>
@@ -113,7 +112,7 @@ let $content :=
           <label for="GST28">28% Taxable Value: </label>
           <input type="number" step="0.01" name="GST28" id="GST28" value="{xdmp:get-request-field("GST28")}"/><br/><br/>
 
-          <input type="submit" name="submitbtn" id="submitbtn" value="Add Sales Data"/>
+          <input type="submit" class="submitbtn" id="submitbtn" value="Add Sales Data"/>
         </form> 
         {local:result-controller()}
       </div>
