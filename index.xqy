@@ -6,7 +6,7 @@ xquery version "1.0-ml";
 
   <head>
       <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-      <link rel="icon" href="Capture.png"/>
+      <link rel="icon" href="capture-1.jpg"/>
       <link rel="stylesheet" href="drop.css" type="text/css"/>
   </head>
 

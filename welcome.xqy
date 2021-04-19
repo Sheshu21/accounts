@@ -11,10 +11,9 @@ declare function home:welcome-page($node){
 
   <head>
       <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-      <link rel="icon" href="Capture.png"/>
+      <link rel="icon" href="capture-1.jpg"/>
       <link rel="stylesheet" href="drop.css" type="text/css"/>
   </head>
-
 
   <body>
 
@@ -22,8 +21,6 @@ declare function home:welcome-page($node){
         <a href="index.xqy">Home</a>
         <a href="">Mohan Automobiles</a>
     </div>
-
-
   	<div class="sidenav">
         <button class="dropdown-btn">Purchase 
           <i class="fa fa-caret-down"></i>
