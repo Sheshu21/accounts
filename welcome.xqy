@@ -11,10 +11,9 @@ declare function home:welcome-page($node){
 
   <head>
       <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-      <link rel="icon" href="Capture.png"/>
+      <link rel="icon" href="capture-1.jpg"/>
       <link rel="stylesheet" href="drop.css" type="text/css"/>
   </head>
-
 
   <body>
 
@@ -22,8 +21,6 @@ declare function home:welcome-page($node){
         <a href="index.xqy">Home</a>
         <a href="">Mohan Automobiles</a>
     </div>
-
-
   	<div class="sidenav">
         <button class="dropdown-btn">Purchase 
           <i class="fa fa-caret-down"></i>
@@ -62,7 +59,7 @@ declare function home:welcome-page($node){
           <a href="index-reports-sale.xq">Sales Report</a>
         </div>
         <a href="pricelist.xq">Price List</a>
-        <a href="index-view-error.xq">Error Balances</a>
+        <a href="index-view-error.xq">Error Bills</a>
         <a href="index-view-balance.xq">Outstanding Balances</a>
 
         <button class="dropdown-btn">Trader 
