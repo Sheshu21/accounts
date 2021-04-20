@@ -63,13 +63,12 @@ declare function local:result-controller()
 
 declare function local:display-article()
 {
-  let $result := "Sales Details Added Successfully"
-  return <div>
-      <div class="article-heading">
-        <p>{$result}</p>
-        <meta http-equiv="refresh" content="5; URL=index-sales.xq"/>
-      </div>
-       </div>
+        <div>
+          <script type="text/javascript">
+            alert("Sales Details Added Successfully");
+          </script>
+          <meta http-equiv="refresh" content="0; URL=index-sales.xq"></meta>
+        </div>
 };
 
 let $content :=
