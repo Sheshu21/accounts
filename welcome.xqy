@@ -59,7 +59,7 @@ declare function home:welcome-page($node){
           <a href="index-reports-sale.xq">Sales Report</a>
         </div>
         <a href="pricelist.xq">Price List</a>
-        <a href="index-view-error.xq">Error Balances</a>
+        <a href="index-view-error.xq">Error Bills</a>
         <a href="index-view-balance.xq">Outstanding Balances</a>
 
         <button class="dropdown-btn">Trader 
