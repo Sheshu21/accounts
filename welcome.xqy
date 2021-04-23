@@ -1,5 +1,10 @@
 xquery version "1.0-ml";
 
+module namespace home = "welcome-page";
+
+
+declare function home:welcome-page($node){
+
   let $document := <html xmlns="http://www.w3.org/1999/xhtml">
 
   <title>Mohan Automobiles</title>
@@ -10,14 +15,12 @@ xquery version "1.0-ml";
       <link rel="stylesheet" href="drop.css" type="text/css"/>
   </head>
 
-
   <body>
 
     <div class="navbar">
-        <a href="">Home</a>
+        <a href="index.xqy">Home</a>
         <a href="">Mohan Automobiles</a>
     </div>
-
   	<div class="sidenav">
         <button class="dropdown-btn">Purchase 
           <i class="fa fa-caret-down"></i>
@@ -55,6 +58,7 @@ xquery version "1.0-ml";
           <a href="index-reports-payment.xq">Payment Report</a>
           <a href="index-reports-sale.xq">Sales Report</a>
         </div>
+
         <button class="dropdown-btn">Price List 
           <i class="fa fa-caret-down"></i>
         </button>
@@ -63,6 +67,7 @@ xquery version "1.0-ml";
           <a href="view-pricelist.xq">View/Edit Price List</a>
           <a href="add-brand.xq">Add Brand</a>
         </div>
+
         <a href="index-view-error.xq">Error Bills</a>
         <a href="index-view-balance.xq">Outstanding Balances</a>
 
@@ -73,6 +78,8 @@ xquery version "1.0-ml";
           <a href="index-auto-insert.xq">Add Trader/Supplier</a>
           <a href="index-view-trader.xq">View/Edit Trader Info</a>
         </div>
+        {$node}
+        
     </div>
     <script type="text/javascript" src="date.js"></script>
   </body>    
@@ -84,3 +91,4 @@ xquery version "1.0-ml";
     "<!DOCTYPE html>", 
     document{ $document} 
   )
+};
