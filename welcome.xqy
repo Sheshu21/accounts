@@ -20,6 +20,7 @@ declare function home:welcome-page($node){
     <div class="navbar">
         <a href="index.xqy">Home</a>
         <a href="">Mohan Automobiles</a>
+        <a href="">Welcome {xdmp:get-request-username()}</a>
     </div>
   	<div class="sidenav">
         <button class="dropdown-btn">Purchase 
@@ -58,7 +59,16 @@ declare function home:welcome-page($node){
           <a href="index-reports-payment.xq">Payment Report</a>
           <a href="index-reports-sale.xq">Sales Report</a>
         </div>
-        <a href="pricelist.xq">Price List</a>
+
+        <button class="dropdown-btn">Price List 
+          <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-container">
+          <a href="add-price.xq">Add Price</a>
+          <a href="view-pricelist.xq">View/Edit Price List</a>
+          <a href="add-brand.xq">Add Brand</a>
+        </div>
+
         <a href="index-view-error.xq">Error Bills</a>
         <a href="index-view-balance.xq">Outstanding Balances</a>
 
