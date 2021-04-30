@@ -30,6 +30,18 @@ declare function util:currentmonth(){
 
 };
 
+declare function util:lastmonth(){
+  
+  let $date := fn:current-date()
+  let $one-day := xs:dayTimeDuration('P1D')
+  let $one-month := xs:yearMonthDuration('P1M')
+  let $lastmonthfirstday := $date - (fn:day-from-date($date) - 1) * $one-day - $one-month
+  let $lastmonthlastday := $lastmonthfirstday + $one-month - $one-day
+  let $year := fn:year-from-date($lastmonthfirstday)
+  return  ($lastmonthfirstday, $lastmonthlastday, fn:concat(xdmp:month-name-from-date($lastmonthfirstday), " - ", $year))
+
+};
+
 declare function util:getfirstandlastday(){
   
   let $date := fn:current-date()
@@ -41,13 +53,15 @@ declare function util:getfirstandlastday(){
 
 };
 
-declare function util:totals($coll, $gst){
+declare function util:totals($coll, $gst, $flag){
   
   let $input := if($gst eq 'GST5' or $gst eq 'IGST5') then 'GST5' else if($gst eq 'GST12' or $gst eq 'IGST12') then 'GST12' else if($gst eq 'GST18' or $gst eq 'IGST18') then 'GST18' else if($gst eq 'GST28' or $gst eq 'IGST28') then 'GST28' else ()
   let $gstn := if($gst eq 'GST5' or $gst eq 'GST12' or $gst eq 'GST18' or $gst eq 'GST28') then 'CGST/SGST' else 'IGST'
   let $var := fn:concat($input,"Basic")
-  let $startDate := util:getfirstandlastday()[1]
-  let $endDate := util:getfirstandlastday()[2]
+  let $dates := if($flag eq "Current") then util:getfirstandlastday() else util:lastmonth()
+
+  let $startDate := $dates[1]
+  let $endDate := $dates[2]
   let $basic :=  fn:sum(cts:search(
                           fn:collection($coll),
                           cts:and-query((
@@ -57,6 +71,7 @@ declare function util:totals($coll, $gst){
                           ))
                         )/node()/*[local-name() eq $input]/*[local-name() eq $var]/text())
   let $multiplier := if($gst eq 'GST5' or $gst eq 'IGST5') then 0.05 else if($gst eq 'GST12' or $gst eq 'IGST12') then 0.12 else if($gst eq 'GST18' or $gst eq 'IGST18') then 0.18 else if($gst eq 'GST28' or $gst eq 'IGST28') then 0.28 else ()
-  return ( $basic + $basic * $multiplier )
+  let $result := ( $basic + $basic * $multiplier )
+  return if($result) then $result else 0
 
 };

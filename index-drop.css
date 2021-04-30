@@ -244,13 +244,14 @@ button:hover {
   z-index: 1;
   top: 90px;
   left: 260px;
-  color: #fff;
-  background-color: #3e4444;
+  background-color: #ffef96;
   overflow-x: hidden;
   padding-top: 20px;
   font-family: Bradley Hand, cursive;
   padding: 12px 16px;
   font-size: 14px;  
+  border: 3px;
+  border-radius: 50px;
 }
 
 .fy {
@@ -270,13 +271,14 @@ button:hover {
   z-index: 1;
   top: 90px;
   left: 570px;
-  color: #fff;
-  background-color: #3e4444;
+  background-color: #ffef96;
   overflow-x: hidden;
   padding-top: 20px;
   font-family: Bradley Hand, cursive;
   padding: 12px 16px;
   font-size: 14px;  
+  border: 3px;
+  border-radius: 50px;
 }
 
 .igst {
@@ -286,11 +288,63 @@ button:hover {
   z-index: 1;
   top: 90px;
   left: 880px;
-  color: #fff;
-  background-color: #3e4444;
+  background-color: #ffef96;
+  overflow-x: hidden;
+  padding-top: 20px;
+  font-family: Bradley Hand, cursive;
+  padding: 12px 16px;
+  font-size: 14px; 
+  border: 3px;
+  border-radius: 50px; 
+}
+
+.lgst {
+  height: 35%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 350px;
+  left: 570px;
+  background-color: #e6e2d3;
+  overflow-x: hidden;
+  padding-top: 20px;
+  font-family: Bradley Hand, cursive;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 3px;
+  border-radius: 50px;  
+}
+
+.ligst {
+  height: 35%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 350px;
+  left: 880px;
+  background-color: #e6e2d3;
+  overflow-x: hidden;
+  padding-top: 20px;
+  font-family: Bradley Hand, cursive;
+  padding: 12px 16px;
+  font-size: 14px;
+  border: 3px;
+  border-radius: 50px;
+}
+
+.ldashboard {
+  height: 35%;
+  width: 20%;
+  position: fixed;
+  z-index: 1;
+  top: 350px;
+  left: 260px;
+  background-color: #e6e2d3;
   overflow-x: hidden;
   padding-top: 20px;
   font-family: Bradley Hand, cursive;
   padding: 12px 16px;
   font-size: 14px;  
+  border: 3px;
+  border-radius: 50px;
 }

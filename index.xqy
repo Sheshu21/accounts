@@ -137,23 +137,23 @@ declare function local:calculateTotal($coll)
             </tr>
             <tr>
               <td style="text-align:left">5%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST5"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST5"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST5", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST5", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">12%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST12"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST12"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST12", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST12", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">18%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST18"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST18"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST18", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST18", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">28%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST28"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST28"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST28", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST28", "Current"), "#,##0.00")}</td>
             </tr>
           </table>
         </div>
@@ -168,25 +168,90 @@ declare function local:calculateTotal($coll)
             </tr>
             <tr>
               <td style="text-align:left">5%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST5"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST5"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST5", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST5", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">12%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST12"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST12"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST12", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST12", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">18%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST18"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST18"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST18", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST18", "Current"), "#,##0.00")}</td>
             </tr>
             <tr>
               <td style="text-align:left">28%</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST28"), "#,##0.00")}</td>
-              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST28"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST28", "Current"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST28", "Current"), "#,##0.00")}</td>
             </tr>
           </table>
+        </div>
+
+        <div class="lgst">
+          <p style="text-align:center"> GST { util:lastmonth()[3] }</p>
+          <table width="100%">
+            <tr>
+              <td style="text-align:left">Rate</td>
+              <td style="text-align:right">Sales</td>
+              <td style="text-align:right">Purchases</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">5%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST5", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST5", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">12%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST12", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST12", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">18%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST18", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST18", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">28%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "GST28", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "GST28", "Last"), "#,##0.00")}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="ligst">
+          <p style="text-align:center"> IGST { util:lastmonth()[3] }</p>
+          <table width="100%">
+            <tr>
+              <td style="text-align:left">Rate</td>
+              <td style="text-align:right">Sales</td>
+              <td style="text-align:right">Purchases</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">5%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST5", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST5", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">12%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST12", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST12", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">18%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST18", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST18", "Last"), "#,##0.00")}</td>
+            </tr>
+            <tr>
+              <td style="text-align:left">28%</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Sales", "IGST28", "Last"), "#,##0.00")}</td>
+              <td style="text-align:right">{fn:format-number(util:totals("Purchases", "IGST28", "Last"), "#,##0.00")}</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="ldashboard">
         </div>
 
     </div>
